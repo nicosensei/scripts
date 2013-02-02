@@ -10,16 +10,35 @@
 # Path to the adb executable - edit to match your own
 ADB_PATH=~/dev/adt-bundle-x86/sdk/platform-tools
 
+# If you don't like the screen being cleared by the script set this to 0
+ALLOW_CLEAR=0
+
+SCRIPT_HOME="`pwd`"
+
+# Test switch (allows blank runs of the script for testing purposes). 
+# Set to 0 to actually execute ADB commands, otherwise they are simply 
+# logged.
+TEST_MODE=1
+
 ########################################################################
 # Function definitions
 ########################################################################
 
-waitForEnter() {
-   read -p "$*" 'Press [Enter] key to move on.'
+pause() {
+   read -p "$*"
+}
+
+adbCall() {
+	COMMAND="$ADB_PATH/adb $1"
+	if [ "$TEST_MODE" -eq "0" ]; 
+		then $COMMAND
+	else
+		echo -e "[test mode] $COMMAND"
+	fi 
 }
 
 clearAndDisplayHeader() {
-	clear
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 	echo "                             DROID X360 SUPERSCRIPT                            "
 	echo "                                 BY TEHCRUCIBLE                                "
@@ -80,10 +99,10 @@ menu() {
 }
 
 check() {
-	clear
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Running connection test..."
 	echo
-	adb devices
+	adbCall 'devices'
 	echo
 	echo
 	echo
@@ -91,35 +110,35 @@ check() {
 	echo "If not, the script will not work. Quit now and refer to README.TXT."
 	echo "If yes, your good to go."
 	echo
-	waitForEnter;
+	pause 'Press [Enter] key to move on.';
 	menu;
 }
 
 backup() {
-	adb root
-	clear
+	adbCall "root"
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Backing up files..."
-	adb pull /system/media/bootanimation.zip backup/bootanimation.zip
-	adb pull /system/app/SystemUI.apk backup/SystemUI.apk
-	adb pull /system/framework/framework-res.apk backup/framework-res.apk
-	adb pull /system/build.prop backup/build.prop
-	adb pull /default.prop backup/default.prop
-	adb pull /init.rc backup/init.rc
-	adb pull /init backup/init
-	adb pull /system/usr/keylayout backup/keylayout
-	adb pull /system/bin/preinstall.sh backup/preinstall.sh
-	adb pull /initlogo.rle backup/initlogo.rle
-	adb pull /system/app/Browser.apk backup/Browser.apk
-	adb pull /system/vendor/modules/sun4i-keypad.ko backup/sun4i-keypad.ko
-	adb pull /system/usr/keylayout/Generic.kl backup/Generic.kl
-	adb pull /system/framework/android.policy.jar backup/android.policy.jar
-	adb pull /system/app/Settings.apk backup/Settings.apk
-	clear
+	adbCall "pull /system/media/bootanimation.zip backup/bootanimation.zip"
+	adbCall "pull /system/app/SystemUI.apk backup/SystemUI.apk"
+	adbCall "pull /system/framework/framework-res.apk backup/framework-res.apk"
+	adbCall "pull /system/build.prop backup/build.prop"
+	adbCall "pull /default.prop backup/default.prop"
+	adbCall "pull /init.rc backup/init.rc"
+	adbCall "pull /init backup/init"
+	adbCall "pull /system/usr/keylayout backup/keylayout"
+	adbCall "pull /system/bin/preinstall.sh backup/preinstall.sh"
+	adbCall "pull /initlogo.rle backup/initlogo.rle"
+	adbCall "pull /system/app/Browser.apk backup/Browser.apk"
+	adbCall "pull /system/vendor/modules/sun4i-keypad.ko backup/sun4i-keypad.ko"
+	adbCall "pull /system/usr/keylayout/Generic.kl backup/Generic.kl"
+	adbCall "pull /system/framework/android.policy.jar backup/android.policy.jar"
+	adbCall "pull /system/app/Settings.apk backup/Settings.apk"
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Files have been backed up. You can find them in the 'backup' folder"
 	echo "should you ever need them. Press any key to return to the menu and"
 	echo "move on to Step 3."
 	echo
-	waitForEnter;
+	pause 'Press [Enter] key to move on.';
 	menu;
 }
 
@@ -136,114 +155,114 @@ express() {
 	echo "Your device will reboot at the completion of this step."
 	echo
 	echo "Ready? Cool, here we go."
-	waitForEnter;
-	clear
+	pause 'Press [Enter] key to move on.';
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Logging in as ROOT User"
-	adb root
-	adb remount
+	adbCall "root"
+	adbCall "remount"
 	echo "Removing pre-installed Chinese crap..."
 	echo
-	adb shell rm /system/app/PPTV_aPad_1.2.2.apk
-	adb shell rm /system/app/UCBrowser_V1.0.1.146.apk
-	adb shell rm /system/app/com.hiapk.marketpho-2.apk
-	adb shell rm /system/app/PinyinIME.apk
-	adb shell rm /system/app/OpenWnn.apk
-	clear
+	adbCall "shell rm /system/app/PPTV_aPad_1.2.2.apk"
+	adbCall "shell rm /system/app/UCBrowser_V1.0.1.146.apk"
+	adbCall "shell rm /system/app/com.hiapk.marketpho-2.apk"
+	adbCall "shell rm /system/app/PinyinIME.apk"
+	adbCall "shell rm /system/app/OpenWnn.apk"
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Done. Moving on..."
 	echo
 	echo "Installing modified build.prop and market..."
 	echo
-	adb push sausage/preinstall.sh /system/bin/preinstall.sh
-	adb push sausage/build.prop /system/build.prop
+	adbCall "push sausage/preinstall.sh /system/bin/preinstall.sh"
+	adbCall "push sausage/build.prop /system/build.prop"
 	echo
 	echo "Upgrading Market..."
 	echo
-	adb shell rm /system/app/vending.apk
-	adb shell rm /system/app/Vending.apk
+	adbCall "shell rm /system/app/vending.apk"
+	adbCall "shell rm /system/app/Vending.apk"
 	echo "YOU SHOULD HAVE GOTTEN AT LEAST 1 ERROR"
-	adb push sausage/vending/*.apk /system/app/vending.apk
+	adbCall "push sausage/vending/*.apk /system/app/vending.apk"
 	echo
-	for N in sausage/permissions/*.xml; do adb push sausage/permissions/$N /system/etc/permissions/$N
-	for N in /system/etc/permissions/*.xml; do adb adb shell chmod 644 /system/etc/permissions/$N
+	for N in sausage/permissions/*.xml; do adbCall "push $N /system/etc/permissions/`basename $N`"; done
+	for N in /system/etc/permissions/*.xml; do adbCall "shell chmod 644 /system/etc/permissions/`basename $N`"; done
 	echo
 	echo "Removing some other files. Some errors are not uncommon."
 	echo
-	adb shell rm /system/media/bootanimation.zip
-	adb push sausage/boot/bootanimation.zip /system/media/bootanimation.zip
+	adbCall "shell rm /system/media/bootanimation.zip"
+	adbCall "push sausage/boot/bootanimation.zip /system/media/bootanimation.zip"
 	echo
 	echo "Now to modify the (system/app and preinstall) directories..."
 	echo
-	for N in sausage/apps/*.apk; do adb push sausage/apps/$N /system/app/$N
-	for N in sausage/*.apk; do adb push sausage/$N /system/preinstall/$N
+	for N in sausage/apps/*.apk; do adbCall "push $N /system/app/`basename $N`"; done
+	for N in sausage/*.apk; do adbCall "push $N /system/preinstall/`basename $N`"; done
 	echo
 	echo "Some permissions files..."
 	echo
-	for N in sausage/permissions/*.xml; do adb push sausage/permissions/$N /system/etc/permissions/$N
-	for N in /system/etc/permissions/*.xml; do adb adb shell chmod 644 /system/etc/permissions/$N
+	for N in sausage/permissions/*.xml; do adbCall "push $N /system/etc/permissions/`basename $N`"; done
+	for N in /system/etc/permissions/*.xml; do adbCall "shell chmod 644 /system/etc/permissions/`basename $N`"; done
 	echo
 	echo "Fixing issues with Gallery sync, removing 2160P Video and installing"
 	echo "default Google Gallery application..."
 	echo
-	adb shell rm /system/app/Gallery2.apk
-	adb shell rm /data/app/Gallery2.apk
-	adb shell rm /data/app/com.android.gallery3d*.apk
-	adb shell rm /data/app/com.android.gallery3d-1.apk
+	adbCall "shell rm /system/app/Gallery2.apk"
+	adbCall "shell rm /data/app/Gallery2.apk"
+	adbCall "shell rm /data/app/com.android.gallery3d*.apk"
+	adbCall "shell rm /data/app/com.android.gallery3d-1.apk"
 	echo
 	echo "Updating files..."
 	echo
-	adb push sausage/fixes/GalleryGoogle.apk /system/app/GalleryGoogle.apk
-	adb shell chmod 644 /system/app/GalleryGoogle.apk
+	adbCall "push sausage/fixes/GalleryGoogle.apk /system/app/GalleryGoogle.apk"
+	adbCall "shell chmod 644 /system/app/GalleryGoogle.apk"
 	echo
 	echo "Applying smart status bar script..."
 	echo
-	adb shell rm /system/framework/android.policy.jar
-	adb push status/android.policy.jar /system/framework/android.policy.jar
-	adb shell chmod 644 /system/framework/android.policy.jar
-	adb shell chown 0.0 /system/framework/android.policy.jar
-	adb shell rm /system/app/Settings.apk
-	adb push status/Settings.apk /system/app/Settings.apk
-	adb shell chmod 644 /system/app/Settings.apk
-	adb shell chown 0.0 /system/app/Settings.apk
-	adb reboot
-	clear
+	adbCall "shell rm /system/framework/android.policy.jar"
+	adbCall "push status/android.policy.jar /system/framework/android.policy.jar"
+	adbCall "shell chmod 644 /system/framework/android.policy.jar"
+	adbCall "shell chown 0.0 /system/framework/android.policy.jar"
+	adbCall "shell rm /system/app/Settings.apk"
+	adbCall "push status/Settings.apk /system/app/Settings.apk"
+	adbCall "shell chmod 644 /system/app/Settings.apk"
+	adbCall "shell chown 0.0 /system/app/Settings.apk"
+	adbCall "reboot"
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Finished updating files. We're done! Your device is now rebooting."
 	echo 
 	echo "After the reboot, you're good to go.  However, I highly recommend"
 	echo "you run Step 4 to install Furan's keypad patch to fix controller"
-	echo issues.  You may also want to try out the new increased system UI 
-	echo size option (Step 5).
+	echo "issues.  You may also want to try out the new increased system UI "
+	echo "size option (Step 5)."
 	echo
-	echo Also, if your status bar is missing after the reboot, you need to
+	echo "Also, if your status bar is missing after the reboot, you need to"
 	echo "enable \"Smart screen mode\" to restore it. On the device:"
 	echo
-	echo Settings - Display - Screen mode - Smart screen mode
+	echo "Settings - Display - Screen mode - Smart screen mode"
 	echo
-	waitForEnter;
+	pause 'Press [Enter] key to move on.';
 	menu;
 }
 
 patch() {
-	adb root
-	adb remount
+	adbCall "root"
+	adbCall "remount"
 	
 	clearAndDisplayHeader;
 	
-	echo Version 0.4 of the SuperScript corrected button mapping for Android, matching
-	echo the default linux gamepad keycodes. Step 1 will set your D-Pad and ABXY button 
-	echo controls correctly and will also map the hardware buttons on your X360 to:
+	echo "Version 0.4 of the SuperScript corrected button mapping for Android, matching"
+	echo "the default linux gamepad keycodes. Step 1 will set your D-Pad and ABXY button "
+	echo "controls correctly and will also map the hardware buttons on your X360 to:"
 	echo
-	echo BACK - Button under left thumbstick
-	echo MENU - Select button
-	echo HOME - Start button
+	echo "BACK - Button under left thumbstick"
+	echo "MENU - Select button"
+	echo "HOME - Start button"
 	echo
-	echo How would you like to patch?
+	echo "How would you like to patch?"
 	echo
 	echo "1 - Install Furan's keypad patch and remap buttons"
 	echo "2 - Install Furan's keypad patch but dont remap buttons"
-	echo 3 - Revert to original keypad config (MUST HAVE RUN STEP 1 BACKUP FIRST)
-	echo Q - Go Back
+	echo "3 - Revert to original keypad config (MUST HAVE RUN STEP 1 BACKUP FIRST)"
+	echo "Q - Go Back"
 	echo
-	echo Choose a step (1-3): 
+	echo "Choose a step (1-3):"
 	
 	read CHOICE
 	case "$CHOICE" in
@@ -263,7 +282,7 @@ patch() {
 			menu;
 			;;
 		*)
-			echo Choose a step (1-3) or press Q: 
+			echo "Choose a step (1-3) or press Q:"
 			;;
 	esac
 	patch;
@@ -273,13 +292,13 @@ patch1() {
 	echo
 	echo "Patching..."
 	echo
-	adb push keypad/sun4i-keypad.ko /system/vendor/modules/sun4i-keypad.ko
-	adb shell chmod 644 /system/vendor/modules/sun4i-keypad.ko
-	adb push keypad/Generic.kl /system/usr/keylayout/Generic.kl
-	adb shell chmod 644 /system/usr/keylayout/Generic.kl
+	adbCall "push keypad/sun4i-keypad.ko /system/vendor/modules/sun4i-keypad.ko"
+	adbCall "shell chmod 644 /system/vendor/modules/sun4i-keypad.ko"
+	adbCall "push keypad/Generic.kl /system/usr/keylayout/Generic.kl"
+	adbCall "shell chmod 644 /system/usr/keylayout/Generic.kl"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
@@ -287,11 +306,11 @@ patch2() {
 	echo
 	echo "Patching..."
 	echo
-	adb push keypad/sun4i-keypad.ko /system/vendor/modules/sun4i-keypad.ko
-	adb shell chmod 644 /system/vendor/modules/sun4i-keypad.ko
+	adbCall "push keypad/sun4i-keypad.ko /system/vendor/modules/sun4i-keypad.ko"
+	adbCall "shell chmod 644 /system/vendor/modules/sun4i-keypad.ko"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
@@ -299,13 +318,13 @@ patch3() {
 	echo
 	echo "Patching..."
 	echo
-	adb push backup/sun4i-keypad.ko /system/vendor/modules/sun4i-keypad.ko
-	adb shell chmod 644 /system/vendor/modules/sun4i-keypad.ko
-	adb push backup/home/Generic.kl /system/usr/keylayout/Generic.kl
-	adb shell chmod 644 /system/usr/keylayout/Generic.kl
+	adbCall "push backup/sun4i-keypad.ko /system/vendor/modules/sun4i-keypad.ko"
+	adbCall "shell chmod 644 /system/vendor/modules/sun4i-keypad.ko"
+	adbCall "push backup/home/Generic.kl /system/usr/keylayout/Generic.kl"
+	adbCall "shell chmod 644 /system/usr/keylayout/Generic.kl"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
@@ -327,7 +346,7 @@ launcher() {
 	echo
 	echo "Apex Settings - Backup and Restore - Restore Apex Settings."
 	echo
-	waitForEnter;
+	pause 'Press [Enter] key to move on.';
 	launchermenu;
 }
 
@@ -340,7 +359,7 @@ launchermenu() {
 	echo "2 - Restore default UI size"
 	echo "3 - Back to main menu"
 	echo
-	echo Choose a step (1-3): 
+	echo "Choose a step (1-3):"
 	
 	read CHOICE
 	case "$CHOICE" in
@@ -354,40 +373,40 @@ launchermenu() {
 			menu;
 			;;
 		*)
-			echo Choose a step (1-3): 
+			echo "Choose a step (1-3):"
 			;;
 	esac
 	launchermenu;
 }
 
 launcher1() {
-	clear
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Replacing Launcher..."
 	echo
-	adb shell rm /system/app/Launcher.apk
-	adb shell rm /system/app/launcher.apk
-	adb shell rm /system/app/Launcher2.apk
+	adbCall "shell rm /system/app/Launcher.apk"
+	adbCall "shell rm /system/app/launcher.apk"
+	adbCall "shell rm /system/app/Launcher2.apk"
 	echo "YOU SHOULD HAVE GOTTEN AT LEAST 1 ERROR"
-	adb push launcher/*.apk /system/app/Launcher.apk
+	adbCall "push launcher/*.apk /system/app/Launcher.apk"
 	echo
 	echo "Copy apex launcher settings..."
 	echo
-	adb push launcher/apex_settings.bak /mnt/sdcard/Android/data/apexlauncher/apex_settings.bak
+	adbCall "push launcher/apex_settings.bak /mnt/sdcard/Android/data/apexlauncher/apex_settings.bak"
 	echo
 	echo "Increasing UI size via modified build.prop..."
 	echo
-	adb push launcher/build.prop /system/build.prop
+	adbCall "push launcher/build.prop /system/build.prop"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
 launcher2() {
-	clear
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Would you like keep Apex Launcher?"
 	echo
-	echo Choose Y or N: 
+	echo "Choose Y or N:"
 	
 	read CHOICE
 	case "$CHOICE" in
@@ -404,7 +423,7 @@ launcher2() {
 			launcher4;
 			;;
 		*)
-			echo Choose Y or N: 
+			echo "Choose Y or N:"
 			;;
 	esac
 	launcher2;
@@ -414,10 +433,10 @@ launcher3() {
 	echo
 	echo "Reverting UI size..."
 	echo
-	adb push sausage/build.prop /system/build.prop
+	adbCall "push sausage/build.prop /system/build.prop"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
@@ -425,18 +444,18 @@ launcher4() {
 	echo
 	echo "Reverting UI size..."
 	echo
-	adb push sausage/build.prop /system/build.prop
+	adbCall "push sausage/build.prop /system/build.prop"
 	echo
 	echo "Restoring stock ICS launcher..."
 	echo
-	adb shell rm /system/app/Launcher.apk
-	adb shell rm /system/app/launcher.apk
-	adb shell rm /system/app/Launcher2.apk
+	adbCall "shell rm /system/app/Launcher.apk"
+	adbCall "shell rm /system/app/launcher.apk"
+	adbCall "shell rm /system/app/Launcher2.apk"
 	echo "YOU SHOULD HAVE GOTTEN AT LEAST 1 ERROR"
-	adb push launcher/stock/*.apk /system/app/Launcher.apk
+	adbCall "push launcher/stock/*.apk /system/app/Launcher.apk"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
@@ -458,21 +477,21 @@ upgrade() {
 	echo
 	echo "Settings - Display - Screen mode - Smart screen mode"
 	echo
-	waitForEnter;
-	clear
+	pause 'Press [Enter] key to move on.';
+	if [ "$ALLOW_CLEAR" -gt "0" ]; then clear; fi
 	echo "Upgrading.  Please wait..."
 	echo
-	adb shell rm /system/framework/android.policy.jar
-	adb push status/android.policy.jar /system/framework/android.policy.jar
-	adb shell chmod 644 /system/framework/android.policy.jar
-	adb shell chown 0.0 /system/framework/android.policy.jar
-	adb shell rm /system/app/Settings.apk
-	adb push status/Settings.apk /system/app/Settings.apk
-	adb shell chmod 644 /system/app/Settings.apk
-	adb shell chown 0.0 /system/app/Settings.apk
+	adbCall "shell rm /system/framework/android.policy.jar"
+	adbCall "push status/android.policy.jar /system/framework/android.policy.jar"
+	adbCall "shell chmod 644 /system/framework/android.policy.jar"
+	adbCall "shell chown 0.0 /system/framework/android.policy.jar"
+	adbCall "shell rm /system/app/Settings.apk"
+	adbCall "push status/Settings.apk /system/app/Settings.apk"
+	adbCall "shell chmod 644 /system/app/Settings.apk"
+	adbCall "shell chown 0.0 /system/app/Settings.apk"
 	echo
 	echo "Done. Rebooting..."
-	adb reboot
+	adbCall "reboot"
 	menu;
 }
 
@@ -486,7 +505,6 @@ finish() {
 	echo "Huge thanks to Furan, Willgoo, fatesausage, Moorthy, Bondo2, Ivanz, Deen0X"
 	echo
 	echo "Have fun!"
-	waitForEnter;
 	exit 1
 }
 
@@ -495,7 +513,9 @@ finish() {
 ########################################################################
 
 clearAndDisplayHeader;
-	
+echo "Script executes in $SCRIPT_HOME"
+echo "Script uses adb binary located in $ADB_PATH"
+echo	
 echo "This script is a super highway to to awesome for your Droid X360! This script"
 echo "was designed SPECIFICALLY for the DROID X360.  Do not attempt to use it on any"
 echo "other device. This script may void your warranty and I take no responsiblity"
@@ -505,12 +525,12 @@ echo "                 READ THE README.TXT BEFORE USING THIS SCRIPT"
 echo
 echo "Have you?"
 echo
-echo "- Installed ADB linux platform tools?"
+echo "- Installed adb linux platform tools?"
 echo "- Configured udev for your device (may not be mandatory)"
 echo "- Enabled USB Debugging?"
 echo "- Connected your DROID X360 via USB?"
 echo "- Removed any external SD card?"
 echo
 echo "Yes? Good."
-waitForEnter;
+pause 'Press [Enter] key to move on.';
 menu;
