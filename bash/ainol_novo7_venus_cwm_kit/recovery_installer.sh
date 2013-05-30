@@ -20,7 +20,7 @@ ALLOW_CLEAR=0
 
 SCRIPT_HOME="`pwd`"
 
-# Path to recovery image"
+# Path to recovery image
 CWM_IMAGE=recovery.img
 
 # Test switch (allows blank runs of the script for testing purposes). 
