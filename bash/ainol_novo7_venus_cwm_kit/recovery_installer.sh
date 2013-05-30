@@ -20,6 +20,9 @@ ALLOW_CLEAR=0
 
 SCRIPT_HOME="`pwd`"
 
+# Path to recovery image"
+CWM_IMAGE=recovery.img
+
 # Test switch (allows blank runs of the script for testing purposes). 
 # Set to 0 to actually execute ADB commands, otherwise they are simply 
 # logged.
@@ -104,6 +107,39 @@ check() {
 }
 
 write() {
+	if [ ! -f $CWM_IMAGE ]; then
+		echo "CWM image $CWM_IMAGE not found!"
+		echo "Cannot continue!"
+		pause 'Press [Enter] key to move on.';
+		menu;
+	fi
+	echo "Venus CWM recovery install script by Cloud Deter."
+	echo "Script based off cxz's commands."
+	echo "Recovery by bnmguy."
+	echo "Please wait while ADB starts and gains root..."
+	adbCall "root"
+	adbCall "wait-for-device"
+	echo "Making recovery directory..."
+	adbCall "shell busybox mkdir /mnt/obb/rec"
+	echo "Mounting recovery partition..."
+	adbCall "shell busybox mount -t vfat /dev/block/acta /mnt/obb/rec"
+	echo "Copying CWM to the recovery partition..."
+	adbCall "push $CWM_IMAGE /mnt/obb/rec"
+	echo "Stopping ADB..."
+	adbCall "kill-server"
+	echo "Finished!"
+	pause 'Press [Enter] key to move on.';
+}
+
+finish() {
+	clearAndDisplayHeader;
+	echo "To access CWM recovery 'Power off' your Venus."
+	echo "Then press and hold the VOLUME MINUS (-) key and the power button key."
+	echo
+	echo "Huge thanks to bmourit, Cloud Deter and cxz @ ZZKKO forums."
+	echo
+	echo "Have fun!"
+	exit 1
 }
 
 ########################################################################
