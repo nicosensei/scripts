@@ -3,7 +3,7 @@
 # Ainol Novo 7 Venus Clockworkmod Recovery installation scrip by Nikojiro 
 #
 # Based on Cloud Deter's CWM kit
-# Cf. http://forums.zzkko.com/topic/2651-guide-clockworkmod-cwm-custom-recovery-guide-and-installation/page-10
+# Cf. http://forums.zzkko.com/topic/2651-guide-clockworkmod-cwm-custom-recovery-guide-and-installation/
 #
 # ClockworkMod Recovery early build developed by bmnguy.
 #
