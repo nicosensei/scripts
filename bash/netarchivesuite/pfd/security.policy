@@ -1,0 +1,47 @@
+grant codeBase "file:lib/-" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "file:${java.home}/-" {
+  permission java.security.AllPermission;
+};
+
+grant principal javax.management.remote.JMXPrincipal "monitorRole" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "file:lib/heritrix/lib/-" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "file:/bnf/dlwebdata/netarchivesuite/pfdmenelas/tmp/Status/jsp/-" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "file:/bnf/dlwebdata/netarchivesuite/pfdmenelas/tmp/QA/jsp/-" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "file:/bnf/dlwebdata/netarchivesuite/pfdmenelas/tmp/History/jsp/-" {
+  permission java.security.AllPermission;
+};
+
+grant codeBase "file:/bnf/dlwebdata/netarchivesuite/pfdmenelas/tmp/HarvestDefinition/jsp/-" {
+  permission java.security.AllPermission;
+};
+
+/* This allows third-party batch classes to figure out which location they're at
+*/
+grant {
+  permission java.util.PropertyPermission "settings.*", "read";
+};
+
+grant {
+  permission java.util.PropertyPermission "org.mortbay.*", "read";
+};
+
+grant {
+  permission java.io.FilePermission "viewerproxy/-", "read,write,delete";
+  permission java.io.FilePermission "arcs/-", "read,write";
+  permission java.io.FilePermission "tmp/-", "read,write,delete";
+};

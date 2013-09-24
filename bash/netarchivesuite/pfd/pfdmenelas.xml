@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployGlobal>
+
+	<deployClassPath>lib/dk.netarkivet.archive.jar</deployClassPath>
+	<deployClassPath>lib/dk.netarkivet.common.jar</deployClassPath>
+	<deployClassPath>lib/dk.netarkivet.harvester.jar</deployClassPath>
+	<deployClassPath>lib/dk.netarkivet.monitor.jar</deployClassPath>
+	<deployClassPath>lib/dk.netarkivet.viewerproxy.jar</deployClassPath>
+
+	<settings>
+		<common>
+			<environmentName>pfdmenelas</environmentName>
+			<organization>BnF</organization>
+			<tempDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/tmp</tempDir>
+			<jms>
+				<class>dk.netarkivet.common.distribute.JMSConnectionSunMQ</class>
+				<broker>menelas1.bnf.fr</broker>
+				<port>7676</port>
+			</jms>
+			<jmx>
+				<timeout>300</timeout><!-- default 120 (sec) -->
+				<passwordFile>conf/jmxremote.password</passwordFile>
+			</jmx>			
+			<notifications>
+				<class>dk.netarkivet.common.utils.EMailNotifications</class>
+				<sender>nas_pfdmenelas@bnf.fr</sender>
+				<receiver>nicolas.giraud@bnf.fr</receiver>
+			</notifications>
+			<mail>
+				<server>smtp.bnf.fr</server>
+			</mail>
+			<indexClient>
+				<class>dk.netarkivet.harvester.indexserver.distribute.IndexRequestClient
+				</class>
+				<indexRequestTimeout>86400000</indexRequestTimeout>
+			</indexClient>
+
+			<arcrepositoryClient>
+				<class>dk.netarkivet.common.distribute.arcrepository.LocalArcRepositoryClient
+				</class>
+				<fileDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/arcs</fileDir>
+			</arcrepositoryClient>
+
+			<topLevelDomains>
+				<tld>ac.be</tld>
+				<tld>ac</tld>
+				<tld>ac.uk</tld>
+				<tld>ac.uk</tld>
+				<tld>ad</tld>
+				<tld>aeroport.fr</tld>
+				<tld>aero</tld>
+				<tld>ae</tld>
+				<tld>af</tld>
+				<tld>ag</tld>
+				<tld>ai</tld>
+				<tld>al</tld>
+				<tld>am</tld>
+				<tld>an</tld>
+				<tld>ao</tld>
+				<tld>aq</tld>
+				<tld>arpa</tld>
+				<tld>ar</tld>
+				<tld>asso.fr</tld>
+				<tld>asso.nc</tld>
+				<tld>asso.re</tld>
+				<tld>asso</tld>
+				<tld>as</tld>
+				<tld>at</tld>
+				<tld>au</tld>
+				<tld>avoues.fr</tld>
+				<tld>aw</tld>
+				<tld>ax</tld>
+				<tld>az</tld>
+				<tld>ba</tld>
+				<tld>bb</tld>
+				<tld>bd</tld>
+				<tld>be</tld>
+				<tld>bf</tld>
+				<tld>bg</tld>
+				<tld>bh</tld>
+				<tld>bi</tld>
+				<tld>biz</tld>
+				<tld>bj</tld>
+				<tld>bm</tld>
+				<tld>bn</tld>
+				<tld>bo</tld>
+				<tld>br</tld>
+				<tld>bs</tld>
+				<tld>bt</tld>
+				<tld>bv</tld>
+				<tld>bw</tld>
+				<tld>by</tld>
+				<tld>bz</tld>
+				<tld>ca</tld>
+				<tld>cat</tld>
+				<tld>cc</tld>
+				<tld>cd</tld>
+				<tld>cf</tld>
+				<tld>cg</tld>
+				<tld>chambagri.fr</tld>
+				<tld>ch</tld>
+				<tld>ci</tld>
+				<tld>ck</tld>
+				<tld>cl</tld>
+				<tld>cm</tld>
+				<tld>cn</tld>
+				<tld>co.il</tld>
+				<tld>com.fr</tld>
+				<tld>com.lb</tld>
+				<tld>com.re</tld>
+				<tld>com</tld>
+				<tld>com.tn</tld>
+				<tld>com.ye</tld>
+				<tld>coop</tld>
+				<tld>co</tld>
+				<tld>co.uk</tld>
+				<tld>cr</tld>
+				<tld>cs</tld>
+				<tld>cu</tld>
+				<tld>cv</tld>
+				<tld>cx</tld>
+				<tld>cy</tld>
+				<tld>cz</tld>
+				<tld>de</tld>
+				<tld>dj</tld>
+				<tld>dk</tld>
+				<tld>dm</tld>
+				<tld>do</tld>
+				<tld>dz</tld>
+				<tld>ec</tld>
+				<tld>edu.au</tld>
+				<tld>edu</tld>
+				<tld>ee</tld>
+				<tld>eg</tld>
+				<tld>eh</tld>
+				<tld>er</tld>
+				<tld>es</tld>
+				<tld>et</tld>
+				<tld>eu</tld>
+				<tld>fi</tld>
+				<tld>fj</tld>
+				<tld>fk</tld>
+				<tld>fm</tld>
+				<tld>fo</tld>
+				<tld>fr</tld>
+				<tld>ga</tld>
+				<tld>gb</tld>
+				<tld>gd</tld>
+				<tld>ge</tld>
+				<tld>gf</tld>
+				<tld>gg</tld>
+				<tld>gh</tld>
+				<tld>gi</tld>
+				<tld>gl</tld>
+				<tld>gm</tld>
+				<tld>gn</tld>
+				<tld>gouv.fr</tld>
+				<tld>gouv</tld>
+				<tld>gov</tld>
+				<tld>govt.uk</tld>
+				<tld>gov.uk</tld>
+				<tld>gp</tld>
+				<tld>gq</tld>
+				<tld>gr</tld>
+				<tld>gs</tld>
+				<tld>gt</tld>
+				<tld>gu</tld>
+				<tld>gw</tld>
+				<tld>gy</tld>
+				<tld>hk</tld>
+				<tld>hm</tld>
+				<tld>hn</tld>
+				<tld>hr</tld>
+				<tld>ht</tld>
+				<tld>hu</tld>
+				<tld>id</tld>
+				<tld>ie</tld>
+				<tld>il</tld>
+				<tld>im</tld>
+				<tld>info</tld>
+				<tld>in</tld>
+				<tld>int</tld>
+				<tld>io</tld>
+				<tld>iq</tld>
+				<tld>ir</tld>
+				<tld>is</tld>
+				<tld>it</tld>
+				<tld>je</tld>
+				<tld>jm</tld>
+				<tld>jobs</tld>
+				<tld>jo</tld>
+				<tld>jp</tld>
+				<tld>ke</tld>
+				<tld>kg</tld>
+				<tld>kh</tld>timeout
+				<tld>ki</tld>
+				<tld>km</tld>
+				<tld>kn</tld>
+				<tld>kp</tld>
+				<tld>kr</tld>
+				<tld>kw</tld>
+				<tld>ky</tld>
+				<tld>kz</tld>
+				<tld>la</tld>
+				<tld>lb</tld>
+				<tld>lc</tld>
+				<tld>lea.uk</tld>
+				<tld>li</tld>
+				<tld>lk</tld>
+				<tld>lr</tld>
+				<tld>ls</tld>
+				<tld>ltd.uk</tld>
+				<tld>lt</tld>
+				<tld>lu</tld>
+				<tld>lv</tld>
+				<tld>ly</tld>
+				<tld>ma</tld>
+				<tld>mc</tld>
+				<tld>md</tld>
+				<tld>medecin.fr</tld>
+				<tld>me</tld>
+				<tld>me.uk</tld>
+				<tld>mg</tld>
+				<tld>mh</tld>
+				<tld>mil</tld>
+				<tld>mil.uk</tld>
+				<tld>mk</tld>
+				<tld>ml</tld>
+				<tld>mm</tld>
+				<tld>mn</tld>
+				<tld>mobi</tld>
+				<tld>mod.uk</tld>
+				<tld>mo</tld>
+				<tld>mp</tld>
+				<tld>mq</tld>
+				<tld>mr</tld>
+				<tld>ms</tld>
+				<tld>mt</tld>
+				<tld>museum</tld>
+				<tld>mu</tld>
+				<tld>mv</tld>
+				<tld>mw</tld>
+				<tld>mx</tld>
+				<tld>my</tld>
+				<tld>mz</tld>
+				<tld>name</tld>
+				<tld>na</tld>
+				<tld>nc</tld>
+				<tld>nel.uk</tld>
+				<tld>ne</tld>
+				<tld>net</tld>
+				<tld>net.uk</tld>
+				<tld>nf</tld>
+				<tld>ng</tld>
+				<tld>nhs.uk</tld>
+				<tld>nic.uk</tld>
+				<tld>ni</tld>
+				<tld>nl</tld>
+				<tld>nom.fr</tld>
+				<tld>nom.nc</tld>
+				<tld>no</tld>
+				<tld>np</tld>
+				<tld>nr</tld>
+				<tld>nt</tld>
+				<tld>nu</tld>
+				<tld>nz</tld>
+				<tld>om</tld>
+				<tld>org.eg</tld>
+				<tld>org.mx</tld>
+				<tld>orgn.uk</tld>
+				<tld>org</tld>
+				<tld>org.uk</tld>
+				<tld>pa</tld>
+				<tld>pe</tld>
+				<tld>pf</tld>
+				<tld>pg</tld>
+				<tld>pharmacien.fr</tld>
+				<tld>ph</tld>
+				<tld>pk</tld>
+				<tld>plc.uk</tld>
+				<tld>pl</tld>
+				<tld>pm</tld>
+				<tld>pn</tld>
+				<tld>police.uk</tld>
+				<tld>port.fr</tld>
+				<tld>prd.fr</tld>
+				<tld>presse.fr</tld>
+				<tld>pro</tld>
+				<tld>pr</tld>
+				<tld>ps</tld>
+				<tld>pt</tld>
+				<tld>pw</tld>
+				<tld>py</tld>
+				<tld>qa</tld>
+				<tld>qc.ca</tld>
+				<tld>re</tld>
+				<tld>ro</tld>
+				<tld>ru</tld>
+				<tld>rw</tld>
+				<tld>sa</tld>
+				<tld>sb</tld>
+				<tld>sch.uk</tld>
+				<tld>sc</tld>
+				<tld>sd</tld>
+				<tld>se</tld>
+				<tld>sg</tld>
+				<tld>sh</tld>
+				<tld>si</tld>
+				<tld>sj</tld>
+				<tld>sk</tld>
+				<tld>sl</tld>
+				<tld>sm</tld>
+				<tld>sn</tld>
+				<tld>so</tld>
+				<tld>sr</tld>
+				<tld>st</tld>
+				<tld>su</tld>
+				<tld>sv</tld>
+				<tld>sy</tld>
+				<tld>sz</tld>
+				<tld>tc</tld>
+				<tld>td</tld>
+				<tld>tf</tld>
+				<tld>tg</tld>
+				<tld>th</tld>
+				<tld>tj</tld>
+				<tld>tk</tld>
+				<tld>tl</tld>
+				<tld>tm.fr</tld>
+				<tld>tm</tld>
+				<tld>tn</tld>
+				<tld>to</tld>
+				<tld>tp</tld>
+				<tld>travel</tld>
+				<tld>tr</tld>
+				<tld>tt</tld>
+				<tld>tv</tld>
+				<tld>tw</tld>
+				<tld>tz</tld>
+				<tld>ua</tld>
+				<tld>ug</tld>
+				<tld>uk</tld>
+				<tld>us</tld>
+				<tld>uy</tld>
+				<tld>uz</tld>
+				<tld>va</tld>
+				<tld>vc</tld>
+				<tld>ve</tld>
+				<tld>vg</tld>
+				<tld>vi</tld>
+				<tld>vn</tld>
+				<tld>vu</tld>
+				<tld>wf</tld>
+				<tld>ws</tld>
+				<tld>ye</tld>
+				<tld>yt</tld>
+				<tld>yu</tld>
+				<tld>za</tld>
+				<tld>zm</tld>
+				<tld>zw</tld>
+			</topLevelDomains>
+			<processTimeout>60000</processTimeout><!-- millisecs -->
+			<cacheDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/cache</cacheDir>
+		</common>
+		<monitor>
+			<jmxUsername>monitorRole</jmxUsername>
+			<jmxPassword>pfdmenelas</jmxPassword>
+			<logging>
+				<historySize>100</historySize>
+			</logging>
+		</monitor>
+		<harvester>
+			<performer>Bibliothèque Nationale de France</performer>
+			<datamodel>
+				<domain>
+					<defaultSeedlist>defaultseeds</defaultSeedlist>
+					<defaultConfig>defaultconfig</defaultConfig>
+					<defaultOrderxml>default</defaultOrderxml>
+					<defaultMaxrate>100</defaultMaxrate>
+					<defaultMaxbytes>-1</defaultMaxbytes>
+					<defaultMaxobjects>-1</defaultMaxobjects>
+					<!--validSeedRegex>#.*|(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()&lt;&gt;]+|\(([^\s()&lt;&gt;]+|(\([^\s()&lt;&gt;]+\)))*\))+(?:\(([^\s()&lt;&gt;]+|(\([^\s()&lt;&gt;]+\)))*\)|[^\s`!()\[\]{};:'".,&lt;&gt;?«»“”‘’]))</validSeedRegex -->
+				</domain>
+			</datamodel>
+			<scheduler>
+				<jobtimeouttime>2678400</jobtimeouttime>
+				<jobgenerationperiode>60</jobgenerationperiode>
+				<jobGen>
+					<class>dk.netarkivet.harvester.scheduler.jobgen.FixedDomainConfigurationCountJobGenerator
+					</class>
+					<objectLimitIsSetByQuotaEnforcer>false
+					</objectLimitIsSetByQuotaEnforcer>
+					<domainConfigSubsetSize>5000</domainConfigSubsetSize>
+					<config>
+						<fixedDomainCountSnapshot>3500</fixedDomainCountSnapshot>
+						<fixedDomainCountFocused>500</fixedDomainCountFocused>
+						<excludeDomainsWithZeroBudget>true</excludeDomainsWithZeroBudget>
+					</config>
+				</jobGen>
+			</scheduler>
+			<monitor>
+				<refreshInterval>60</refreshInterval><!-- 60 secs -->
+				<displayedHistorySize>20</displayedHistorySize>
+				<historySampleRate>300</historySampleRate><!-- 5 min -->
+				<historyChartGenInterval>300</historyChartGenInterval><!-- 5 min -->
+			</monitor>
+			<harvesting>
+				<sendReadyInterval>60</sendReadyInterval>
+				<sendReadyDelay>1000</sendReadyDelay>
+				<deduplication>
+					<enabled>true</enabled>
+				</deduplication>
+				<heritrix>
+					<adminName>admin</adminName>
+					<adminPassword>dlweb</adminPassword>
+					<jmxUsername>controlRole</jmxUsername>
+					<jmxPassword>pfdmenelas</jmxPassword>
+					<crawlLoopWaitTime>20</crawlLoopWaitTime><!-- in seconds -->
+					<abortIfConnectionLost>false</abortIfConnectionLost>
+					<waitForReportGenerationTimeout>300
+					</waitForReportGenerationTimeout>
+					<archiveFormat>arc</archiveFormat>
+				</heritrix>
+				<frontier>
+					<frontierReportWaitTime>300</frontierReportWaitTime> <!-- 5 min -->
+					<filter>
+						<class>dk.netarkivet.harvester.harvesting.frontier.TopTotalEnqueuesFilter</class>
+						<args>200</args>
+					</filter>
+					<!--filter> <class>dk.netarkivet.harvester.harvesting.frontier.ExhaustedQueuesFilter</class> 
+						<args>200</args> </filter -->
+					<filter>
+						<class>dk.netarkivet.harvester.harvesting.frontier.RetiredQueuesFilter</class>
+						<args>200</args>
+					</filter>
+				</frontier>
+				<heritrixLauncher>
+					<class>dk.netarkivet.harvester.harvesting.controller.BnfHeritrixLauncher</class>
+				</heritrixLauncher>
+				<harvestReport>
+					<class>dk.netarkivet.harvester.harvesting.report.BnfHarvestReport</class>
+				</harvestReport>
+				<metadata>
+					<heritrixFilePattern>.*(\.xml|\.txt|\.log|\.out|\.job)</heritrixFilePattern>
+					<reportFilePattern>.*-report.txt</reportFilePattern>
+					<logFilePattern>.*(\.log|\.out)</logFilePattern>
+					<metadataFormat>arc</metadataFormat>
+				</metadata>
+			</harvesting>
+		</harvester>
+	</settings>
+
+	<thisPhysicalLocation name="pfdmenelas">
+		<deployMachineUserName>dlweb</deployMachineUserName>
+		<deployInstallDir>/home/dlweb/netarchivesuite</deployInstallDir>
+
+		<!-- Admin machine -->
+		<deployMachine name="menelas1.bnf.fr">
+		
+		  <settings>
+	          <common>
+	             <database>
+	                  <baseUrl>jdbc:postgresql</baseUrl>
+	                  <machine>172.23.118.141</machine>
+	                  <port>5432</port>
+	                  <dir>dlweb?user=netarchivesuite&amp;password=</dir>
+	                  <class>dk.netarkivet.harvester.datamodel.PostgreSQLSpecifics</class>
+	                  <pool>
+	                      <minSize>5</minSize>
+	                      <maxSize>10</maxSize>
+	                      <acquireInc>5</acquireInc>
+	                      <maxStm>0</maxStm>
+	                      <maxStmPerConn>10</maxStmPerConn>
+	                  </pool>
+	              </database>
+                </common>
+            </settings>
+
+			<applicationName name="dk.netarkivet.common.webinterface.GUIApplication">
+
+				<deployJavaOpt>-Xmx256m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=6000 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/GUIApplication_GC.log</deployJavaOpt>
+
+				<settings>
+					<common>					   
+						<http>
+							<port>8070</port>
+						</http>
+						<jmx>
+							<port>8100</port>
+							<rmiPort>8200</rmiPort>
+						</jmx>
+						<remoteFile>
+							<port>5442</port>
+						</remoteFile>
+						<webinterface>
+							<!-- Language settings -->
+							<language>
+								<locale>fr</locale>
+								<name>Français</name>
+							</language>
+							<language>
+								<locale>en</locale>
+								<name>English</name>
+							</language>
+							<siteSection>
+								<class>dk.netarkivet.harvester.webinterface.DefinitionsSiteSection</class>
+								<webapplication>webpages/HarvestDefinition.war</webapplication>
+							</siteSection>
+							<siteSection>
+								<class>dk.netarkivet.harvester.webinterface.HistorySiteSection</class>
+								<webapplication>webpages/History.war</webapplication>
+							</siteSection>
+							<siteSection>
+								<class>dk.netarkivet.viewerproxy.webinterface.QASiteSection</class>
+								<webapplication>webpages/QA.war</webapplication>
+							</siteSection>
+							<siteSection>
+								<class>dk.netarkivet.monitor.webinterface.StatusSiteSection</class>
+								<webapplication>webpages/Status.war</webapplication>
+							</siteSection>
+							<harvestStatus>
+								<defaultPageSize>100</defaultPageSize>
+							</harvestStatus>
+						</webinterface>
+						<database>
+							<pool>
+								<minSize>5</minSize>
+								<maxSize>30</maxSize>
+								<acquireInc>5</acquireInc>
+							</pool>
+						</database>
+					</common>
+					<monitor>
+						<jmxUsername>monitorRole</jmxUsername>
+						<jmxPassword>pfdmenelas</jmxPassword>
+						<!--jmxPassword>pfdmenelas</jmxPassword -->
+					</monitor>
+				</settings>
+			</applicationName>
+
+			<applicationName
+				name="dk.netarkivet.harvester.indexserver.IndexServerApplication">
+
+				<deployJavaOpt>-Xmx1g -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/IndexServerApplication_GC.log</deployJavaOpt>
+
+				<settings>
+					<common>
+						<jmx>
+							<port>8101</port>
+							<rmiPort>8201</rmiPort>
+						</jmx>
+						<remoteFile>
+							<port>5443</port>
+						</remoteFile>
+					</common>
+				</settings>
+			</applicationName>
+
+			<applicationName name="dk.netarkivet.viewerproxy.ViewerProxyApplication">
+
+				<deployJavaOpt>-Xmx512m -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/ViewerApplication_GC.log</deployJavaOpt>
+
+				<settings>
+					<common>
+						<http>
+							<port>8071</port>
+						</http>
+						<jmx>
+							<port>8102</port>
+							<rmiPort>8202</rmiPort>
+						</jmx>
+						<remoteFile>
+							<port>5444</port>
+						</remoteFile>
+					</common>
+					<viewerproxy>
+						<baseDir>viewerproxy</baseDir>
+					</viewerproxy>
+				</settings>
+			</applicationName>
+
+			<applicationName
+				name="dk.netarkivet.harvester.scheduler.HarvestJobManagerApplication">
+
+				<deployJavaOpt>-Xmx512m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=6001 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/HarvestJobManagerApplication_GC.log</deployJavaOpt>
+
+				<settings>
+					<common>
+						<jmx>
+							<port>8103</port>
+							<rmiPort>8203</rmiPort>
+						</jmx>
+					</common>
+				</settings>
+			</applicationName>
+
+		</deployMachine>
+
+		<!-- Crawler machine 1 -->
+		<deployMachine name="menelas2.bnf.fr">
+
+			<!-- Broad crawler 1 -->
+			<applicationName name="dk.netarkivet.harvester.harvesting.HarvestControllerApplication">
+
+				<deployJavaOpt>-Xmx256m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=6000 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/HarvestControllerApplication_low1_GC.log</deployJavaOpt>
+
+				<settings>
+					<common>
+						<applicationInstanceId>low1</applicationInstanceId>
+						<jmx>
+							<port>8100</port>
+							<rmiPort>8200</rmiPort>
+						</jmx>
+						<remoteFile>
+							<port>5442</port>
+						</remoteFile>
+					</common>
+					<harvester>
+						<harvesting>
+							<queuePriority>LOWPRIORITY</queuePriority>
+							<heritrix>
+								<guiPort>8070</guiPort>
+								<jmxPort>8170</jmxPort>
+								<heapSize>1g</heapSize>
+								<javaOpts>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/Heritrix_low1_GC.log</javaOpts>
+							</heritrix>
+							<oldjobsDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/old</oldjobsDir>
+							<serverDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/current/low1</serverDir>
+						</harvesting>
+					</harvester>
+				</settings>
+			</applicationName>
+
+			<!-- Focused crawler 1 -->
+			<applicationName
+				name="dk.netarkivet.harvester.harvesting.HarvestControllerApplication">
+
+				<deployJavaOpt>-Xmx256m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=6001 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/HarvestControllerApplication_high1_GC.log</deployJavaOpt>
+
+				<settings>
+					<common>
+						<applicationInstanceId>high1</applicationInstanceId>
+						<jmx>
+							<port>9100</port>
+							<rmiPort>9200</rmiPort>
+						</jmx>
+						<remoteFile>
+							<port>5443</port>
+						</remoteFile>
+					</common>
+					<harvester>
+						<harvesting>
+							<queuePriority>HIGHPRIORITY</queuePriority>
+							<heritrix>
+								<guiPort>8071</guiPort>
+								<jmxPort>8171</jmxPort>
+								<heapSize>1g</heapSize>
+								<javaOpts>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/Heritrix_high1_GC.log</javaOpts>
+							</heritrix>
+							<oldjobsDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/old</oldjobsDir>
+							<serverDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/current/high1</serverDir>
+						</harvesting>
+					</harvester>
+				</settings>
+			</applicationName>
+
+		</deployMachine>
+		
+		<!-- Crawler machine 2 -->
+        <deployMachine name="menelas3.bnf.fr">
+
+            <!-- Broad crawler 2 -->
+            <applicationName name="dk.netarkivet.harvester.harvesting.HarvestControllerApplication">
+
+                <deployJavaOpt>-Xmx256m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=6000 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/HarvestControllerApplication_low2_GC.log</deployJavaOpt>
+
+                <settings>
+                    <common>
+                        <applicationInstanceId>low2</applicationInstanceId>
+                        <jmx>
+                            <port>8100</port>
+                            <rmiPort>8200</rmiPort>
+                        </jmx>
+                        <remoteFile>
+                            <port>5442</port>
+                        </remoteFile>
+                    </common>
+                    <harvester>
+                        <harvesting>
+                            <queuePriority>LOWPRIORITY</queuePriority>
+                            <heritrix>
+                                <guiPort>8070</guiPort>
+                                <jmxPort>8170</jmxPort>
+                                <heapSize>1g</heapSize>
+                                <javaOpts>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/Heritrix_low2_GC.log</javaOpts>
+                            </heritrix>
+                            <oldjobsDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/old</oldjobsDir>
+                            <serverDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/current/low2</serverDir>
+                        </harvesting>
+                    </harvester>
+                </settings>
+            </applicationName>
+
+            <!-- Focused crawler 1 -->
+            <applicationName
+                name="dk.netarkivet.harvester.harvesting.HarvestControllerApplication">
+
+                <deployJavaOpt>-Xmx256m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=6001 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/HarvestControllerApplication_high2_GC.log</deployJavaOpt>
+
+                <settings>
+                    <common>
+                        <applicationInstanceId>high2</applicationInstanceId>
+                        <jmx>
+                            <port>9100</port>
+                            <rmiPort>9200</rmiPort>
+                        </jmx>
+                        <remoteFile>
+                            <port>5443</port>
+                        </remoteFile>
+                    </common>
+                    <harvester>
+                        <harvesting>
+                            <queuePriority>HIGHPRIORITY</queuePriority>
+                            <heritrix>
+                                <guiPort>8071</guiPort>
+                                <jmxPort>8171</jmxPort>
+                                <heapSize>1g</heapSize>
+                                <javaOpts>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:/bnf/dlwebdata/netarchivesuite/pfdmenelas/log/Heritrix_high2_GC.log</javaOpts>
+                            </heritrix>
+                            <oldjobsDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/old</oldjobsDir>
+                            <serverDir>/bnf/dlwebdata/netarchivesuite/pfdmenelas/jobs/current/high2</serverDir>
+                        </harvesting>
+                    </harvester>
+                </settings>
+            </applicationName>
+
+        </deployMachine>
+
+	</thisPhysicalLocation>
+
+
+</deployGlobal>
